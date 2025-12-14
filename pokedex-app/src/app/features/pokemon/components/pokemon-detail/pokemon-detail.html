@@ -1,0 +1,144 @@
+<div class="pokemon-detail" *ngIf="!isLoading && pokemon">
+  <button class="pokemon-detail__back-btn" (click)="goBack()">
+    ← Voltar
+  </button>
+
+  <div class="pokemon-detail__container">
+    <!-- Left Panel - Pokemon Display -->
+    <div class="pokemon-detail__display-panel">
+      <div class="pokemon-detail__screen">
+        <div class="pokemon-detail__screen-header">
+          <div class="pokemon-detail__led">
+            <span class="led led--red"></span>
+            <span class="led led--yellow"></span>
+            <span class="led led--green"></span>
+          </div>
+        </div>
+        
+        <div class="pokemon-detail__sprite-container">
+          <img 
+            [src]="getCurrentSprite()" 
+            [alt]="pokemon.name"
+            class="pokemon-detail__sprite"
+            [class.pokemon-detail__sprite--animated]="isAnimating"
+          />
+        </div>
+
+        <div class="pokemon-detail__controls">
+          <button 
+            class="control-btn"
+            (click)="toggleAnimation()"
+            [class.control-btn--active]="isAnimating"
+          >
+            {{ isAnimating ? '⏸ Pausar' : '▶ Animar' }}
+          </button>
+        </div>
+
+        <div class="pokemon-detail__directional">
+          <div class="d-pad">
+            <button class="d-pad__btn d-pad__btn--up" (click)="rotateToDirection('back')">
+              <span>Trás</span>
+            </button>
+            <button class="d-pad__btn d-pad__btn--left" (click)="rotateToDirection('left')">
+              <span>Esq</span>
+            </button>
+            <button class="d-pad__btn d-pad__btn--center"></button>
+            <button class="d-pad__btn d-pad__btn--right" (click)="rotateToDirection('right')">
+              <span>Dir</span>
+            </button>
+            <button class="d-pad__btn d-pad__btn--down" (click)="rotateToDirection('front')">
+              <span>Frente</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel - Pokemon Info -->
+    <div class="pokemon-detail__info-panel">
+      <div class="pokemon-detail__header">
+        <h1 class="pokemon-detail__name">{{ pokemon.name | pokemonName }}</h1>
+        <span class="pokemon-detail__id">{{ getPokemonIdFormatted() }}</span>
+      </div>
+
+      <div class="pokemon-detail__types">
+        <span 
+          *ngFor="let typeInfo of pokemon.types"
+          class="type-badge"
+          [ngClass]="getTypeClass(typeInfo.type.name)"
+        >
+          {{ typeInfo.type.name | pokemonName }}
+        </span>
+      </div>
+
+      <div class="pokemon-detail__basic-info">
+        <div class="info-item">
+          <span class="info-item__label">Altura</span>
+          <span class="info-item__value">{{ pokemon.height / 10 }} m</span>
+        </div>
+        <div class="info-item">
+          <span class="info-item__label">Peso</span>
+          <span class="info-item__value">{{ pokemon.weight / 10 }} kg</span>
+        </div>
+        <div class="info-item">
+          <span class="info-item__label">Experiência Base</span>
+          <span class="info-item__value">{{ pokemon.base_experience }}</span>
+        </div>
+      </div>
+
+      <div class="pokemon-detail__section">
+        <h3 class="section-title">Habilidades</h3>
+        <div class="abilities">
+          <div 
+            *ngFor="let abilityInfo of pokemon.abilities"
+            class="ability-badge"
+            [class.ability-badge--hidden]="abilityInfo.is_hidden"
+          >
+            <span class="ability-badge__name">{{ abilityInfo.ability.name | pokemonName }}</span>
+            <span class="ability-badge__tag" *ngIf="abilityInfo.is_hidden">(Oculta)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pokemon-detail__section">
+        <h3 class="section-title">Estatísticas Base</h3>
+        <div class="stats">
+          <div *ngFor="let stat of pokemon.stats" class="stat">
+            <div class="stat__header">
+              <span class="stat__name">{{ stat.stat.name | pokemonName }}</span>
+              <span class="stat__value">{{ stat.base_stat }}</span>
+            </div>
+            <div class="stat__bar">
+              <div 
+                class="stat__bar-fill"
+                [style.width.%]="getStatPercentage(stat.base_stat)"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pokemon-detail__section" *ngIf="pokemon.moves && pokemon.moves.length > 0">
+        <h3 class="section-title">Alguns Movimentos</h3>
+        <div class="moves">
+          <span 
+            *ngFor="let moveInfo of pokemon.moves.slice(0, 8)"
+            class="move-badge"
+          >
+            {{ moveInfo.move.name | pokemonName }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="pokemon-detail__loading">
+  <div class="pokeball-loader"></div>
+  <p>Carregando Pokémon...</p>
+</div>
+
+<div *ngIf="error" class="pokemon-detail__error">
+  {{ error }}
+  <button (click)="goBack()">Voltar</button>
+</div>

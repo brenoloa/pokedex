@@ -1,0 +1,80 @@
+<div class="pokemon-list">
+  <div class="pokemon-list__header">
+    <h1 class="pokemon-list__title">Pokédex</h1>
+    <app-search-bar (searchChange)="onSearch($event)"></app-search-bar>
+  </div>
+
+  <div *ngIf="isLoading" class="pokemon-list__loading">
+    <div class="pokeball-loader"></div>
+    <p>Carregando Pokémons...</p>
+  </div>
+
+  <div *ngIf="error" class="pokemon-list__error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && !error" class="pokemon-list__grid">
+    <app-pokemon-card
+      *ngFor="let pokemon of displayedPokemons"
+      [pokemon]="pokemon"
+      (pokemonSelected)="onPokemonSelected($event)"
+    ></app-pokemon-card>
+  </div>
+
+  <div *ngIf="!isLoading && filteredPokemons.length === 0" class="pokemon-list__empty">
+    <p>Nenhum Pokémon encontrado</p>
+  </div>
+
+  <div *ngIf="!isLoading && displayedPokemons.length > 0" class="pokemon-list__pagination">
+    <button 
+      class="pagination__btn pagination__btn--prev" 
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+    >
+      ← Anterior
+    </button>
+
+    <div class="pagination__pages">
+      <button 
+        *ngIf="currentPage > 3"
+        class="pagination__page"
+        (click)="goToPage(1)"
+      >
+        1
+      </button>
+      
+      <span *ngIf="currentPage > 3" class="pagination__ellipsis">...</span>
+
+      <button 
+        *ngFor="let page of getPageNumbers()"
+        class="pagination__page"
+        [class.pagination__page--active]="page === currentPage"
+        (click)="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+
+      <span *ngIf="currentPage < totalPages - 2" class="pagination__ellipsis">...</span>
+
+      <button 
+        *ngIf="currentPage < totalPages - 2"
+        class="pagination__page"
+        (click)="goToPage(totalPages)"
+      >
+        {{ totalPages }}
+      </button>
+    </div>
+
+    <button 
+      class="pagination__btn pagination__btn--next" 
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      Próximo →
+    </button>
+  </div>
+
+  <div *ngIf="!isLoading && displayedPokemons.length > 0" class="pokemon-list__info">
+    Exibindo {{ (currentPage - 1) * itemsPerPage + 1 }} - {{ Math.min(currentPage * itemsPerPage, filteredPokemons.length) }} de {{ filteredPokemons.length }} Pokémons
+  </div>
+</div>

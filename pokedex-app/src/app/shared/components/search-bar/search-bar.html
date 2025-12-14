@@ -1,0 +1,20 @@
+<div class="search-bar">
+  <div class="search-bar__container">
+    <input 
+      type="text" 
+      class="search-bar__input"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearchChange()"
+      placeholder="Buscar Pokémon..."
+      autocomplete="off"
+    />
+    <button 
+      *ngIf="searchTerm" 
+      class="search-bar__clear"
+      (click)="clearSearch()"
+      type="button"
+    >
+      ✕
+    </button>
+  </div>
+</div>

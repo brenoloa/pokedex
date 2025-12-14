@@ -1,0 +1,213 @@
+.pokemon-list {
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+
+  &__header {
+    margin-bottom: 40px;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    
+    p {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #667eea;
+      font-weight: 600;
+    }
+  }
+
+  &__error {
+    text-align: center;
+    padding: 40px;
+    background: #ffebee;
+    border-radius: 10px;
+    color: #c62828;
+    font-weight: 600;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  &__empty {
+    text-align: center;
+    padding: 80px 20px;
+    font-size: 1.3rem;
+    color: #999;
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+    padding: 20px;
+  }
+
+  &__info {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 0.95rem;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    font-weight: 500;
+  }
+}
+
+.pagination {
+  &__btn {
+    padding: 12px 24px;
+    background: white;
+    color: #667eea;
+    border: 2px solid #667eea;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    &:hover:not(:disabled) {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__pages {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__page {
+    min-width: 45px;
+    height: 45px;
+    padding: 10px;
+    background: white;
+    color: #667eea;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      border-color: #667eea;
+      transform: scale(1.1);
+    }
+
+    &--active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-color: #764ba2;
+      box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
+      transform: scale(1.15);
+    }
+  }
+
+  &__ellipsis {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0 5px;
+  }
+}
+
+.pokeball-loader {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: relative;
+  animation: spin 1s linear infinite;
+  background: linear-gradient(to bottom, #f44336 50%, white 50%);
+  border: 4px solid #333;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: white;
+    border: 4px solid #333;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    background: #333;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .pokemon-list {
+    padding: 20px 10px;
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+    }
+  }
+}
