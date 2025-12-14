@@ -5,6 +5,19 @@ Uma aplicação moderna de Pokédex desenvolvida em Angular 21 com Clean Archite
 ![Angular](https://img.shields.io/badge/Angular-21-red)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-Production%20Ready-brightgreen)
+
+## 🚀 Deploy Rápido
+
+**Pronto para produção!** Escolha seu método:
+
+| Método | Tempo | Arquivo de Ajuda |
+|--------|-------|------------------|
+| 🤖 **Script Automático** | 2 min | `./deploy.sh` |
+| 🐙 **GitHub + Vercel** | 5 min | [`STATUS.md`](STATUS.md) |
+| 💻 **Vercel CLI** | 3 min | [`QUICKSTART.md`](QUICKSTART.md) |
+
+Consulte [`DEPLOY.md`](DEPLOY.md) para instruções completas.
 
 ## ✨ Funcionalidades
 
@@ -179,6 +192,23 @@ interface PokemonEntity {
 - ✅ Signals para reatividade
 - ✅ Pipes customizados
 - ✅ Guards e interceptors preparados
+- ✅ Vercel SPA routing configurado
+- ✅ Build de produção otimizado
+
+## 📚 Documentação Adicional
+
+| Arquivo | Descrição |
+|---------|-----------|
+| [`STATUS.md`](STATUS.md) | Status atual e resumo do projeto |
+| [`QUICKSTART.md`](QUICKSTART.md) | Início rápido para deploy |
+| [`DEPLOY.md`](DEPLOY.md) | Guia completo de deploy no Vercel |
+| [`DEPLOY_CHECKLIST.md`](DEPLOY_CHECKLIST.md) | Checklist detalhado de deploy |
+| [`COMANDOS.md`](COMANDOS.md) | Todos os comandos úteis |
+| [`GUIA_DE_USO.md`](GUIA_DE_USO.md) | Como usar a aplicação |
+| [`ARQUITETURA.md`](ARQUITETURA.md) | Estrutura e padrões do código |
+| [`FUNCIONALIDADES.md`](FUNCIONALIDADES.md) | Lista completa de features |
+| [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) | Solução de problemas comuns |
+| [`deploy.sh`](deploy.sh) | Script automático de deploy |
 
 ## 📝 Próximas Melhorias
 
